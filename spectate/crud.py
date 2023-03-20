@@ -1,12 +1,23 @@
 
-def insert_query(table, **insert):
-    keys = sorted(insert.keys())
-    cols = ", ".join(keys)
-    vals = ", ".join(convert(insert[key]) for key in keys)
-    return "insert into {} ({}) values ({})".format(table, cols, vals)
+
+def convert(value):
+    try:
+        float(value)
+        return "{}".format(value)
+    except:
+        return "'{}'".format(value)
 
 
-def read_query(table, *where):
+
+
+def create_query(table, **values):
+    keys   = sorted(values.keys())
+    cols   = ", ".join(keys)
+    values = ", ".join(convert(values[key]) for key in keys)
+    return "insert into {} ({}) values ({})".format(table, cols, values)
+
+
+def retrieve_query(table, *where):
     basic = "select * from {} {}".format(table, table[0])
     if not where:
         return basic
@@ -14,8 +25,8 @@ def read_query(table, *where):
         return "{} where {}".format(basic, " and ".join(where))
 
 
-def update_query(table, id, **update):
-    values = ", ".join(["{} = {}".format(key, convert(update[key])) for key in sorted(update.keys())])
+def update_query(table, id, **updates):
+    values = ", ".join(["{} = {}".format(key, convert(updates[key])) for key in sorted(updates.keys())])
     return "update {} set {} where id = {}".format(table, values, id)
 
 
@@ -26,12 +37,3 @@ def delete_query(table, *where):
     else:
         return "{} where {}".format(basic, " and ".join(where))
 
-
-
-
-def convert(value):
-    try:
-        float(value)
-        return "{}".format(value)
-    except:
-        return "'{}'".format(value)

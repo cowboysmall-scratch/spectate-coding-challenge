@@ -5,10 +5,10 @@ import sqlite3
 def init_ddl():
     conn = sqlite3.connect("spectate.db")
     conn.execute("PRAGMA foreign_keys = ON")
-    c    = conn.cursor()
+    curs = conn.cursor()
 
     with open("sql/ddl.sql", "r") as ddl:
-        c.executescript(ddl.read())
+        curs.executescript(ddl.read())
 
     conn.commit()
     conn.close()
@@ -17,10 +17,10 @@ def init_ddl():
 def init_dml():
     conn = sqlite3.connect("spectate.db")
     conn.execute("PRAGMA foreign_keys = ON")
-    c    = conn.cursor()
+    curs = conn.cursor()
 
     with open("sql/dml.sql", "r") as dml:
-        c.executescript(dml.read())
+        curs.executescript(dml.read())
 
     conn.commit()
     conn.close()
@@ -44,6 +44,7 @@ def columns(table):
 def execute(query):
     conn = sqlite3.connect("spectate.db")
     conn.execute("PRAGMA foreign_keys = ON")
+
     try:
         conn.execute(query)
     except sqlite3.IntegrityError:
@@ -57,6 +58,7 @@ def execute(query):
 def retrieve(query):
     conn = sqlite3.connect("spectate.db")
     conn.execute("PRAGMA foreign_keys = ON")
+
     conn.row_factory = dict_factory
 
     results = []

@@ -4,21 +4,21 @@ import os
 from spectate import database
 from spectate import crud
 
+
 def root_options():
 
     os.system('clear')
 
     print("\n\n")
     print("\tOptions:")
-    print("\t[c]   Create Entity")
-    print("\t[r] Retrieve Entity")
-    print("\t[u]   Update Entity")
-    print("\t[d]   Delete Entity")
+    print("\t[c] Create")
+    print("\t[r] Retrieve")
+    print("\t[u] Update")
+    print("\t[d] Delete")
     print("\t[q] Quit")
     print("\n")
 
-    return input("\tWhat would you like to do? ")
-
+    return input("\tEnter option: ")
 
 
 def sub_options():
@@ -33,84 +33,90 @@ def sub_options():
     return input("\tEnter table name: ")
 
 
+def where_clauses():
+
+    where = []
+
+    w = input("\tEnter where clause: ")
+    while w != '':
+        where.append(w)
+        w = input("\tEnter where clause: ")
+
+    return where
+
+
+def wait():
+
+    print("\n")
+    input("\tPress any key to continue...")
+
+
+def print_rows(rows):
+
+    print("\n".join(["\t{}".format(row) for row in rows]))
+
+
+
+
 
 def create():
 
     option = sub_options()
     while option not in ['b', '']:
+
         values = {}
-        cols = database.columns(option)
-        for c in cols:
-            if c != 'id':
-                values[c] = input("\t{}: ".format(c))
+        for column in database.columns(option):
+            if column != 'id':
+                values[column] = input("\t{}: ".format(column))
 
-        database.execute(crud.insert_query(option, **values))
+        database.execute(crud.create_query(option, **values))
 
-        print("\n")
-        input("\tpress any key to continue...")
+        wait()
         option = sub_options()
 
     return option
-
 
 
 def retrieve():
 
     option = sub_options()
     while option not in ['b', '']:
-        where = []
-        w = input("\tEnter where clause: ")
-        while w != '':
-            where.append(w)
-            w = input("\tEnter where clause: ")
 
-        rows = database.retrieve(crud.read_query(option, *where))
-        for row in rows:
-            print("\t{}".format(row))
+        print_rows(database.retrieve(crud.retrieve_query(option, *where_clauses())))
 
-        print("\n")
-        input("\tpress any key to continue...")
+        wait()
         option = sub_options()
 
     return option
-
 
 
 def update():
 
     option = sub_options()
     while option not in ['b', '']:
+
         values = {}
-        cols = database.columns(option)
-        for c in cols:
-            value = input("\t{}: ".format(c))
+        for column in database.columns(option):
+            value = input("\t{}: ".format(column))
             if value != '':
-                values[c] = value
+                values[column] = value
 
         database.execute(crud.update_query(option, **values))
 
-        print("\n")
-        input("\tpress any key to continue...")
+        wait()
         option = sub_options()
 
     return option
-
 
 
 def delete():
 
     option = sub_options()
     while option not in ['b', '']:
-        where = []
-        w = input("\tEnter where clause: ")
-        while w != '':
-            where.append(w)
-            w = input("\tEnter where clause: ")
 
-        rows = database.execute(crud.delete_query(option, *where))
+        database.execute(crud.delete_query(option, *where_clauses()))
 
-        print("\n")
-        input("\tpress any key to continue...")
+        wait()
         option = sub_options()
 
     return option
@@ -120,6 +126,7 @@ def delete():
 
 
 def main(argv):
+
     database.init_ddl()
     database.init_dml()
 
@@ -151,3 +158,4 @@ def main(argv):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
+

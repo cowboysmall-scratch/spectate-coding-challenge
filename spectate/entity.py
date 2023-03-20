@@ -1,4 +1,20 @@
 
+"""
+
+      My initial approach was to implement a lightweight ORM framework, but I
+    decided against it as I don't feel like I have enough years left in my
+    life.
+
+      The below would have contained meta information about tables, and various
+    utility methiods to help construct queries.
+
+      I decided to take a different approach due to time constraints. I leave
+    it here for interests sake - to show the direction I could have gone.
+
+    J.K.
+
+"""
+
 
 class Entity:
 
@@ -32,3 +48,4 @@ class Column:
         self.column_name = column_name
         self.column_type = column_type
         self.nullable    = nullable
+
