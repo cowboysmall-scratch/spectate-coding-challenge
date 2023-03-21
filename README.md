@@ -1,6 +1,6 @@
 # 808 Spectate Coding Challenge
 
-Implement a system which manages multiple sports, events, markets, and selections.
+Implement a system which manages sports, events, markets, and selections.
 
 
 ## implementation notes
