@@ -24,6 +24,19 @@ Execute the following to clone the repository:
 ```
 
 
+## running the tests
+
+Execute the following from the root directory to run the tests:
+
+```
+
+> python -m unittest discover -s tests
+
+```
+
+
+
+
 ## running the code
 
 Execute the following from the root directory to run the application:
@@ -34,16 +47,6 @@ Execute the following from the root directory to run the application:
 
 ```
 
-
-## running the tests
-
-Execute the following from the root directory to run the tests:
-
-```
-
-> python -m unittest discover -s tests
-
-```
 
 
 
