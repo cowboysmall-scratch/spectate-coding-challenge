@@ -3,6 +3,14 @@
 Implement a system which manages multiple sports, events, markets, and selections.
 
 
+## implementation notes
+
+- only standard Python 3.10+ code was used - no libraries or frameworks are required to be installed in order to run this code
+- persistence was implemented with sqlite - which is lightweight and requires no external dependencies
+- I assumed a typo in the challenge description document - i.e. that a market should reference an event (as per the system requirements section)
+- I made use of triggers to implement the active status updates
+- as many filters can be added as required - each filter should be a WHERE clause - some examples have been given below 
+
 
 ## retrieving the code
 
