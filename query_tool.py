@@ -56,9 +56,6 @@ def print_rows(rows):
     print("\n".join(["\t{}".format(row) for row in rows]))
 
 
-
-
-
 def create():
 
     option = sub_options()
@@ -82,7 +79,8 @@ def retrieve():
     option = sub_options()
     while option not in ['b', '']:
 
-        print_rows(database.retrieve(crud.retrieve_query(option, *where_clauses())))
+        print_rows(database.retrieve(
+            crud.retrieve_query(option, *where_clauses())))
 
         wait()
         option = sub_options()
@@ -122,9 +120,6 @@ def delete():
     return option
 
 
-
-
-
 def main(argv):
 
     database.init_ddl()
@@ -155,7 +150,5 @@ def main(argv):
     os.system('clear')
 
 
-
 if __name__ == "__main__":
     main(sys.argv[1:])
-

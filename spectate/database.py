@@ -26,14 +26,12 @@ def init_dml():
     conn.close()
 
 
-
-
 def columns(table):
     conn = sqlite3.connect("spectate.db")
     conn.execute("PRAGMA foreign_keys = ON")
     conn.row_factory = sqlite3.Row
 
-    cursor  = conn.execute("select * from {}".format(table))
+    cursor = conn.execute("select * from {}".format(table))
     columns = [d[0] for d in cursor.description]
 
     conn.close()
@@ -71,8 +69,6 @@ def retrieve(query):
     conn.close()
 
     return results
-
-
 
 
 def dict_factory(cursor, row):
