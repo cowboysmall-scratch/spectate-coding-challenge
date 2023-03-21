@@ -5,7 +5,7 @@ from spectate import database
 from spectate import crud
 
 
-def root_options():
+def root_options() -> str:
 
     os.system('clear')
 
@@ -21,7 +21,7 @@ def root_options():
     return input("\tEnter option: ")
 
 
-def sub_options():
+def sub_options() -> str:
 
     os.system('clear')
 
@@ -33,7 +33,7 @@ def sub_options():
     return input("\tEnter table name: ")
 
 
-def where_clauses():
+def where_clauses() -> list:
 
     where = []
 
@@ -45,18 +45,18 @@ def where_clauses():
     return where
 
 
-def wait():
+def wait() -> None:
 
     print("\n")
     input("\tPress any key to continue...")
 
 
-def print_rows(rows):
+def print_rows(rows: list) -> None:
 
     print("\n".join(["\t{}".format(row) for row in rows]))
 
 
-def create():
+def create() -> str:
 
     option = sub_options()
     while option not in ['b', '']:
@@ -74,7 +74,7 @@ def create():
     return option
 
 
-def retrieve():
+def retrieve() -> str:
 
     option = sub_options()
     while option not in ['b', '']:
@@ -88,7 +88,7 @@ def retrieve():
     return option
 
 
-def update():
+def update() -> str:
 
     option = sub_options()
     while option not in ['b', '']:
@@ -107,7 +107,7 @@ def update():
     return option
 
 
-def delete():
+def delete() -> str:
 
     option = sub_options()
     while option not in ['b', '']:
@@ -120,7 +120,7 @@ def delete():
     return option
 
 
-def main(argv):
+def main(argv: list) -> None:
 
     database.init_ddl()
     database.init_dml()

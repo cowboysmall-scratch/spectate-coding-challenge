@@ -2,7 +2,7 @@
 import sqlite3
 
 
-def init_ddl():
+def init_ddl() -> None:
     conn = sqlite3.connect("spectate.db")
     conn.execute("PRAGMA foreign_keys = ON")
     curs = conn.cursor()
@@ -14,7 +14,7 @@ def init_ddl():
     conn.close()
 
 
-def init_dml():
+def init_dml() -> None:
     conn = sqlite3.connect("spectate.db")
     conn.execute("PRAGMA foreign_keys = ON")
     curs = conn.cursor()
@@ -26,7 +26,7 @@ def init_dml():
     conn.close()
 
 
-def columns(table):
+def columns(table: str) -> list:
     conn = sqlite3.connect("spectate.db")
     conn.execute("PRAGMA foreign_keys = ON")
     conn.row_factory = sqlite3.Row
@@ -39,7 +39,7 @@ def columns(table):
     return columns
 
 
-def execute(query):
+def execute(query: str) -> None:
     conn = sqlite3.connect("spectate.db")
     conn.execute("PRAGMA foreign_keys = ON")
 
@@ -53,7 +53,7 @@ def execute(query):
     conn.close()
 
 
-def retrieve(query):
+def retrieve(query: str) -> list:
     conn = sqlite3.connect("spectate.db")
     conn.execute("PRAGMA foreign_keys = ON")
 

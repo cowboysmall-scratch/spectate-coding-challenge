@@ -1,6 +1,6 @@
 
 
-def convert(value):
+def convert(value: str) -> str:
     try:
         float(value)
         return "{}".format(value)
@@ -8,14 +8,14 @@ def convert(value):
         return "'{}'".format(value)
 
 
-def create_query(table, **values):
-    keys = sorted(values.keys())
+def create_query(table: str, **inserts: str) -> str:
+    keys = sorted(inserts.keys())
     cols = ", ".join(keys)
-    values = ", ".join(convert(values[key]) for key in keys)
+    values = ", ".join(convert(inserts[key]) for key in keys)
     return "insert into {} ({}) values ({})".format(table, cols, values)
 
 
-def retrieve_query(table, *where):
+def retrieve_query(table: str, *where: str) -> str:
     basic = "select * from {} {}".format(table, table[0])
     if not where:
         return basic
@@ -23,13 +23,13 @@ def retrieve_query(table, *where):
         return "{} where {}".format(basic, " and ".join(where))
 
 
-def update_query(table, id, **updates):
+def update_query(table: str, id: int, **updates: str) -> str:
     values = ", ".join(["{} = {}".format(key, convert(updates[key]))
                         for key in sorted(updates.keys())])
     return "update {} set {} where id = {}".format(table, values, id)
 
 
-def delete_query(table, *where):
+def delete_query(table: str, *where: str) -> str:
     basic = "delete from {}".format(table)
     if not where:
         return basic
